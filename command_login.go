@@ -5,9 +5,11 @@ import (
 	"errors"
 	"fmt"
 	"os"
+
+	"github.com/ratludu/gator/internal/database"
 )
 
-func handlerLogin(s *state, cmd command) error {
+func handlerLogin(s *state, cmd command, user database.User) error {
 
 	if len(cmd.args) < 3 {
 		return errors.New("No argurements parsed, expects a single arguement of username")

@@ -3,9 +3,11 @@ package main
 import (
 	"context"
 	"fmt"
+
+	"github.com/ratludu/gator/internal/database"
 )
 
-func handlerUsers(s *state, cmd command) error {
+func handlerUsers(s *state, cmd command, user database.User) error {
 
 	users, err := s.db.GetUsers(context.Background())
 	if err != nil {

@@ -4,31 +4,26 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"time"
 
 	"github.com/google/uuid"
 	"github.com/ratludu/gator/internal/database"
-	"time"
 )
 
-func handlerAddFeed(s *state, cmd command, user database.User) error {
+func handlerFollow(s *state, cmd command, user database.User) error {
 
-	if len(cmd.args) < 4 {
-		return errors.New("Not enough parameters")
+	if len(cmd.args) < 3 {
+		return errors.New("Not enough arguements")
 	}
+
+	url := cmd.args[2]
 
 	user, err := s.db.GetUser(context.Background(), s.conf.CurrentUserName)
 	if err != nil {
 		return err
 	}
 
-	feed, err := s.db.CreateFeed(context.Background(), database.CreateFeedParams{
-		ID:        uuid.New(),
-		CreatedAt: time.Now(),
-		UpdatedAt: time.Now(),
-		Name:      cmd.args[2],
-		Url:       cmd.args[3],
-		UserID:    user.ID,
-	})
+	feed, err := s.db.GetFeedsFromUrl(context.Background(), url)
 	if err != nil {
 		return err
 	}
@@ -44,7 +39,7 @@ func handlerAddFeed(s *state, cmd command, user database.User) error {
 		return err
 	}
 
-	fmt.Println(feed)
+	fmt.Println("	* User", user.Name, "Url:", url)
 	return nil
 
 }

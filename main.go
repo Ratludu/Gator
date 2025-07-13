@@ -45,13 +45,17 @@ func main() {
 	userCommands := commands{}
 	userCommands.cmds = make(map[string]func(*state, command) error)
 
-	userCommands.register("login", handlerLogin)
+	userCommands.register("login", middlewareLoggedIn(handlerLogin))
 	userCommands.register("register", handlerRegister)
 	userCommands.register("reset", handlerReset)
-	userCommands.register("users", handlerUsers)
-	userCommands.register("agg", handlerAgg)
-	userCommands.register("addfeed", handlerAddFeed)
-	userCommands.register("feeds", handlerFeeds)
+	userCommands.register("users", middlewareLoggedIn(handlerUsers))
+	userCommands.register("agg", middlewareLoggedIn(handlerAgg))
+	userCommands.register("addfeed", middlewareLoggedIn(handlerAddFeed))
+	userCommands.register("feeds", middlewareLoggedIn(handlerFeeds))
+	userCommands.register("follow", middlewareLoggedIn(handlerFollow))
+	userCommands.register("following", middlewareLoggedIn(handlerFollowing))
+	userCommands.register("unfollow", middlewareLoggedIn(handlerUnfollow))
+	userCommands.register("browse", middlewareLoggedIn(handlerBrowse))
 
 	args := os.Args
 	if len(args) < 2 {
@@ -66,7 +70,7 @@ func main() {
 
 	err = userCommands.run(&userState, cmd)
 	if err != nil {
-		fmt.Println("Error:", err)
+		fmt.Printf("Error: %v", err)
 		os.Exit(1)
 	}
 

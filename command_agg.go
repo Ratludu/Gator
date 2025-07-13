@@ -9,6 +9,8 @@ import (
 	"io"
 	"net/http"
 	"time"
+
+	"github.com/ratludu/gator/internal/database"
 )
 
 type RSSFeed struct {
@@ -77,15 +79,20 @@ func fetchFeed(ctx context.Context, feedURL string) (*RSSFeed, error) {
 
 }
 
-func handlerAgg(s *state, cmd command) error {
+func handlerAgg(s *state, cmd command, user database.User) error {
 
-	url := "https://www.wagslane.dev/index.xml"
-	rss, err := fetchFeed(context.Background(), url)
+	if len(cmd.args) < 3 {
+		return errors.New("Not enough arguements")
+	}
+
+	timeBetweenRequests, err := time.ParseDuration(cmd.args[2])
 	if err != nil {
-		fmt.Printf("Error: %v\n", err)
 		return err
 	}
 
-	fmt.Println(rss)
-	return nil
+	fmt.Println("Collecting feeds every", cmd.args[2])
+	ticker := time.NewTicker(timeBetweenRequests)
+	for ; ; <-ticker.C {
+		scrapeFeeds(s)
+	}
 }

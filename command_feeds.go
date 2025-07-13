@@ -3,9 +3,11 @@ package main
 import (
 	"context"
 	"fmt"
+
+	"github.com/ratludu/gator/internal/database"
 )
 
-func handlerFeeds(s *state, cmd command) error {
+func handlerFeeds(s *state, cmd command, user database.User) error {
 
 	feeds, err := s.db.GetFeeds(context.Background())
 	if err != nil {
