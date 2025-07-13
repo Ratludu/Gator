@@ -18,8 +18,9 @@ Gator is a rss web aggregator built using postgres and go!
 # Set-up
 
 1. Install go
-2. Set up a `.gatorconfig.json` file in the home of your directroy
-3. Set a `db_url`variable
+2. go install github.com/ratludu/gator@latest
+3. Set up a `.gatorconfig.json` file in the home of your directroy
+4. Set a `db_url`variable
 
 # Running 
 
