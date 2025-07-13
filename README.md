@@ -1,4 +1,4 @@
-                                                                           
+```                                                                     
       _____           ____   _________________       _____         _____   
   ___|\    \     ____|\   \ /                 \ ____|\    \    ___|\    \  
  /    /\    \   /    /\    \\______     ______//     /\    \  |    |\    \ 
@@ -12,7 +12,7 @@
    \( |____|/    \(      )/      \(               \(    )/      \(     )/  
     '   )/        '      '        '                '    '        '     '   
         '                                                                  
-
+```
 Gator is a rss web aggregator built using postgres and go!
 
 # Set-up
@@ -26,3 +26,6 @@ Gator is a rss web aggregator built using postgres and go!
 1. Login
 2. Register
 
+
+### To do
+    - This read me
