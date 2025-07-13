@@ -12,7 +12,11 @@ RETURNING *;
 SELECT * FROM users WHERE name = $1;
 
 -- name: ResetTable :exec
-TRUNCATE TABLE users;
+TRUNCATE TABLE users RESTART IDENTITY CASCADE;
 
 -- name: GetUsers :many
 SELECT * FROM users;
+
+-- name: GetUserFromId :one
+SELECT * FROM users WHERE id = $1;
+

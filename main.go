@@ -49,6 +49,9 @@ func main() {
 	userCommands.register("register", handlerRegister)
 	userCommands.register("reset", handlerReset)
 	userCommands.register("users", handlerUsers)
+	userCommands.register("agg", handlerAgg)
+	userCommands.register("addfeed", handlerAddFeed)
+	userCommands.register("feeds", handlerFeeds)
 
 	args := os.Args
 	if len(args) < 2 {
@@ -64,7 +67,7 @@ func main() {
 	err = userCommands.run(&userState, cmd)
 	if err != nil {
 		fmt.Println("Error:", err)
-		return
+		os.Exit(1)
 	}
 
 }
